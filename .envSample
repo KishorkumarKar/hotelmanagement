@@ -1,0 +1,8 @@
+CONNECTION_STRING=mongodb+srv://developerbackendmail1:15ifN3gVVXvTvwal@development.lgmwr3u.mongodb.net/mycontact-backend
+PORT=3005
+ACCESS_TOKEN_SECRET=aaSdf4Sf8S
+NODE_ENV=development
+BCRYPT_SALT=10
+RABBIT_MQ_HOST=amqp://localhost
+RABBIT_MQ_EXCHANGE_POST=post_delete
+RABBIT_MQ_ROUT_KEY_POST=delete
