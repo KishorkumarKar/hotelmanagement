@@ -10,4 +10,6 @@ export interface IHotel {
   country: string;
   phone: string;
   rating: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

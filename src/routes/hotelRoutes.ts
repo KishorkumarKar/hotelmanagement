@@ -22,6 +22,7 @@ router.get("/list", async (req, res) => {
 //-----------Same----------
 
 router.route("/").post(hotelController.add);
+router.route("/").get(hotelController.getList);
 router.route("/:id").get( hotelController.getById).put(hotelController.update).delete(hotelController.deleteHotel);
 
 export default router;

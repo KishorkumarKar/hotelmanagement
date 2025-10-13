@@ -54,6 +54,8 @@ const hotelSchema = new mongoose.Schema<HotelDocs>({
             message: "Rating must be between 0 and 5"
         },
     }
+},{
+  timestamps:true,
 });
 
 // Generic helper type for Mongoose toJSON transform

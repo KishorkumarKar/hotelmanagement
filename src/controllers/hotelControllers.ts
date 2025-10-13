@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import * as hotelService from '../service/hotelService'
+import { AppError } from '../util/errorUtils';
 
 /**
  * POST V1/hotel
@@ -13,11 +14,26 @@ export const add = asyncHandler(async (req, res) => {
 
 
 /**
+ * GET V1/hotel
+ * to get
+ */
+export const getList = asyncHandler(async (req, res) => {
+    const { limit, page } = req.headers;
+    const pageInt = page ? parseInt(page as string) : 1;
+    const limitInt = limit ? parseInt(limit as string) : 10;
+    const hotelList = await hotelService.list(limitInt, (pageInt - 1) * limitInt);
+    console.log(limit, page)
+    res.status(200).json({ success: true, message: "List", hotels: hotelList });
+});
+
+/**
  * GET V1/hotel/:id
  * to get
  */
 export const getById = asyncHandler(async (req, res) => {
-    res.status(200).json({ success: true, message: "getById" });
+    const { id } = req.params;
+    const hotel = await hotelService.getById(id);
+    res.status(200).json({ success: true, message: "getById", hotel: hotel });
 });
 
 
@@ -26,7 +42,14 @@ export const getById = asyncHandler(async (req, res) => {
  * to delete
  */
 export const deleteHotel = asyncHandler(async (req, res) => {
-    res.status(200).json({ success: true, message: "delete" });
+    const { id } = req.params;
+    const hotel = await hotelService.getById(id);
+    if (!hotel) {
+        throw AppError.notFound(`Hotel Doesn't exist`);
+    } else {
+        hotelService.deleteById(id);
+        res.status(200).json({ success: true, message: `Deleted Hotel ${hotel.name}` });
+    }
 });
 
 /**
