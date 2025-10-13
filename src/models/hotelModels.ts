@@ -11,7 +11,7 @@ const hotelSchema = new mongoose.Schema<HotelDocs>({
         type: String,
         require: true,
         unique: true,
-        match: [/^HOTEL_[a-zA-Z0-9]+$/, "Invalid teacher_id format"],
+        match: [/^HOTEL_[a-zA-Z0-9]+$/, "Invalid Code format it should be like HOTEL_{text}"],
     },
     email: {
         type: String,
@@ -75,6 +75,6 @@ hotelSchema.set("toJSON", {
 });
 
 export default mongoose.model<HotelDocs>(
-    "hotel",
+    "Hotel",
     hotelSchema,
 );
