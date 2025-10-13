@@ -31,7 +31,7 @@ const logger = winston.createLogger({
     winston.format.splat(),
     winston.format.json(),
   ),
-  defaultMeta: { service: "School Management" },
+  defaultMeta: { service: "Hotel Management" },
   transports,
 });
 

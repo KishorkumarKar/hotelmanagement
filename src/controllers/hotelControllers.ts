@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import * as hotelService from '../service/hotelService'
 import { AppError } from '../util/errorUtils';
+import HotelEvents from "../events/hotelEvents";
 
 /**
  * POST V1/hotel
@@ -47,6 +48,10 @@ export const deleteHotel = asyncHandler(async (req, res) => {
     if (!hotel) {
         throw AppError.notFound(`Hotel Doesn't exist`);
     } else {
+        HotelEvents.emitEvent("hotelDeletedIdCreated", {
+            id: id,
+            name: hotel.name,
+        });
         hotelService.deleteById(id);
         res.status(200).json({ success: true, message: `Deleted Hotel ${hotel.name}` });
     }
