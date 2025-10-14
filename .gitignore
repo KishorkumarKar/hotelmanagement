@@ -2,6 +2,7 @@ node-express-mongodb-typescript-blog-rest-api-main
 nodejs-ecommerce-api-main
 typescript-node
 node_modules
+dist
 *.log
 .env
 medea-service/public/
