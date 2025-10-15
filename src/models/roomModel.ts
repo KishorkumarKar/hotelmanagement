@@ -6,7 +6,7 @@ interface RoomDocs extends Omit<IRoom, "id">, mongoose.Document {
 const roomSchema = new mongoose.Schema<RoomDocs>({
     hotel_id: {
         type: mongoose.Schema.ObjectId,
-        refer: "Hotel",
+        ref: "Hotel",
         require: true
     },
     room_number: {
@@ -17,7 +17,7 @@ const roomSchema = new mongoose.Schema<RoomDocs>({
     },
     room_type_id: {
         type: mongoose.Schema.ObjectId,
-        refer: "RoomType",
+        ref: "RoomType",
         require: true
     },
     floor: {

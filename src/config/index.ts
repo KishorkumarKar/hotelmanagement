@@ -5,6 +5,9 @@ const config={
     route:{
         hotel:"hotel",
         room:"room",
+        roomType:"roomtype",
+        book:"book",
+        customer:"customer",
     }
 };
 
