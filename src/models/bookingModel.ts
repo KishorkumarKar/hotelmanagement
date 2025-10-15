@@ -5,49 +5,49 @@ const customerSchema = new mongoose.Schema<IBooking["customer"]>({
     customer_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "RoomType",
-        require: true
+        required: true
     },
     first_name: {
         type: String,
-        require: true,
+        required: true,
     },
     last_name: {
         type: String,
-        require: true
+        required: true
     },
     id_type: {
         type: String,
-        require: true,
+        required: true,
         description: "Like voter or adhar"
     },
     id_number: {
         type: String,
-        require: true,
+        required: true,
         description: "number in id_type"
     },
     email: {
         type: String,
-        require: true
+        required: true
     },
     phone: {
         type: String,
-        require: true
+        required: true
     },
     address: {
         type: String,
-        require: true
+        required: true
     },
 }, { _id: false })
 
 const paymentSchema = new mongoose.Schema<IBooking["payment"]>({
     payment_status: {
         type: String,
-        required: true,
+        requiredd: true,
         enum: ["paid", "refunded", "due"],
     },
     payment_method: {
         type: String,
-        required: true,
+        requiredd: true,
         enum: ["cash", "online"],
     },
     transaction_id: {
@@ -87,24 +87,24 @@ const bookingSchema = new mongoose.Schema<IBookingSchema>({
     },
     hotel_id: {
         type: mongoose.Schema.Types.ObjectId,
-        require: true,
+        required: true,
         ref: "Hotel"
     },
     hotel_code: {
         type: String,
-        require: true
+        required: true
     },
     check_in: {
         type: Date,
-        require: true
+        required: true
     },
     check_out: {
         type: Date,
-        require: true
+        required: true
     },
     status: {
         type: Number,
-        require: true,
+        required: true,
         min: [1, "status must be at least 1"],
         max: [3, "status cannot exceed 3"],
         default: 1,

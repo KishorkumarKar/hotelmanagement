@@ -5,42 +5,42 @@ interface HotelDocs extends Omit<IHotel, "id">, mongoose.Document {
 const hotelSchema = new mongoose.Schema<HotelDocs>({
     name: {
         type: String,
-        require: true
+        required: true
     },
     code: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
         match: [/^HOTEL_[a-zA-Z0-9]+$/, "Invalid Code format it should be like HOTEL_{text}"],
     },
     email: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     street: {
         type: String,
-        require: true,
+        required: true,
     },
     pin: {
         type: String,
-        require: true,
+        required: true,
     },
     city: {
         type: String,
-        require: true,
+        required: true,
     },
     state: {
         type: String,
-        require: true,
+        required: true,
     },
     country: {
         type: String,
-        require: true,
+        required: true,
     },
     phone: {
         type: String,
-        require: true,
+        required: true,
     },
     rating: {
         type: Number,

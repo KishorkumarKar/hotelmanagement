@@ -7,11 +7,11 @@ interface ICustomerDoc extends Omit<ICustomer, "id">, mongoose.Document {
 const customerSchema = new mongoose.Schema<ICustomerDoc>({
     first_name: {
         type: String,
-        require: true,
+        required: true,
     },
     last_name: {
         type: String,
-        require: true
+        required: true
     },
     age: {
         type: Number
@@ -21,19 +21,19 @@ const customerSchema = new mongoose.Schema<ICustomerDoc>({
     },
     phone: {
         type: String,
-        require: true
+        required: true
     },
     address: {
         type: String,
-        require: true
+        required: true
     },
     id_type: {
         type: String,
-        require: true
+        required: true
     },
     id_number: {
         type: String,
-        require: true
+        required: true
     }
 },{
     timestamps:true

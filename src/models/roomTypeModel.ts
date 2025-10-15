@@ -8,12 +8,12 @@ interface roomTypeDoc extends Omit<IRoomType, "id">, mongoose.Document {
 const roomTypeSchema = new mongoose.Schema<roomTypeDoc>({
     type_name: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     max_occupation: {
         type: Number,
-        require: true,
+        required: true,
         description: "no. of person can stay."
     },
     description: {

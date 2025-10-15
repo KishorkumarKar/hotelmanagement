@@ -7,26 +7,26 @@ const roomSchema = new mongoose.Schema<RoomDocs>({
     hotel_id: {
         type: mongoose.Schema.ObjectId,
         ref: "Hotel",
-        require: true
+        required: true
     },
     room_number: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
         match: [/^ROOM [a-zA-Z0-9]+$/, "Invalid Room format it should be like ROOM_{text}"],
     },
     room_type_id: {
         type: mongoose.Schema.ObjectId,
         ref: "RoomType",
-        require: true
+        required: true
     },
     floor: {
         type: Number,
-        require: true
+        required: true
     },
     status: {
         type: Number,
-        require: true,
+        required: true,
         min: [0, "status must be at least 0"],
         max: [2, "status cannot exceed 1"],
         default: 0,
@@ -34,7 +34,7 @@ const roomSchema = new mongoose.Schema<RoomDocs>({
     },
     price_per_night: {
         type: Number,
-        require: true,
+        required: true,
     },
 }, {
     timestamps: true
