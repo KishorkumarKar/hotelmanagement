@@ -24,3 +24,12 @@ export const list = (limit: number, skip: number) => {
         .skip(skip)
         .sort({ createdAt: -1 });
 }
+
+/**
+ * To get Type by Id
+ * @param id 
+ * @returns 
+ */
+export const getById = (id: string) => {
+    return RoomType.findById(id);
+}

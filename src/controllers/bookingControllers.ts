@@ -1,15 +1,15 @@
 import expressAsyncHandler from "express-async-handler"
 import * as bookingService from "../service/bookingService";
-import { IBooking } from "../interface/bookingInterface";
+import { IBooking, IBookingProcess } from "../interface/bookingInterface";
 
 /**
  * POST /V1/booking
  * to add booking
  */
 export const add = expressAsyncHandler(async (req, res) => {
-    const booking: IBooking = req.body;
-    const bookingObject = await bookingService.add(booking);
-    res.status(200).json({ success: true, message: "add", booking: bookingObject });
+    const booking: IBookingProcess = req.body;
+    const bookingObject = await bookingService.manageBooking(booking);
+    res.status(200).json({ success: true, message: "add",book:bookingObject});
 });
 
 /**

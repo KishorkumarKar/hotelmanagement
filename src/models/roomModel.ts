@@ -20,6 +20,11 @@ const roomSchema = new mongoose.Schema<RoomDocs>({
         ref: "RoomType",
         required: true
     },
+    room_type: {
+        type: String,
+        ref: "RoomType",
+        required: true
+    },
     floor: {
         type: Number,
         required: true

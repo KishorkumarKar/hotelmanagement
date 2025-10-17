@@ -24,3 +24,12 @@ export const list = (limit: number, skip: number) => {
         .skip(skip)
         .sort({ createdAt: -1 });
 }
+
+/**
+ * Get Customer By id
+ * @param id 
+ * @returns 
+ */
+export const getById = (id: string) => {
+    return CustomerModel.findById(id);
+}

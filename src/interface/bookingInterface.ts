@@ -14,12 +14,12 @@ export interface IBookingPayment {
     id?: string,
     payment_status: string,
     payment_method: string,
-    transaction_id: string,
+    transaction_id?: string,
     payment_date: Date,
-    amount_paid: number,
-    amount_due: number,
-    refund_date: Date,
-    amount_refunded: number,
+    amount_paid?: number,
+    amount_due?: number,
+    refund_date?: Date,
+    amount_refunded?: number,
 }
 export interface IBooking {
     id?: string,
@@ -27,7 +27,21 @@ export interface IBooking {
     payment: IBookingPayment,
     hotel_id: mongoose.Schema.Types.ObjectId,
     hotel_code: string,
+    room_number: string,
+    room_type: string,
+    room_id: mongoose.Schema.Types.ObjectId,
     check_in: Date,
     check_out: Date,
     status: number,
+}
+/**
+ * Used when booking process happen
+ */
+export interface IBookingProcess {
+    customer_id: string,
+    payment_method: string,
+    hotel_code: string,
+    check_in: string,
+    check_out: string,
+    room_type: string,
 }

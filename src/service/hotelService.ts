@@ -21,3 +21,7 @@ export const deleteById = async (id: string) => {
     return await Hotel.findByIdAndDelete(id);
 }
 
+export const getHotelByCode = (code: string) => {
+    return Hotel.findOne({ code: code });
+}
+

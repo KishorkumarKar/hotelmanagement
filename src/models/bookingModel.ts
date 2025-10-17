@@ -4,7 +4,7 @@ import { IBooking } from "../interface/bookingInterface";
 const customerSchema = new mongoose.Schema<IBooking["customer"]>({
     customer_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "RoomType",
+        ref: "Customer",
         required: true
     },
     first_name: {
@@ -91,6 +91,19 @@ const bookingSchema = new mongoose.Schema<IBookingSchema>({
         ref: "Hotel"
     },
     hotel_code: {
+        type: String,
+        required: true
+    },
+    room_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "Room"
+    },
+    room_number: {
+        type: String,
+        required: true
+    },
+    room_type: {
         type: String,
         required: true
     },
