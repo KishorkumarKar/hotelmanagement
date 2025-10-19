@@ -11,3 +11,10 @@ export interface IRoom {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+export interface IRoomAvailable{
+    room_type?:string;
+    hotel_id:string;
+    check_in:Date;
+    check_out:Date;
+}

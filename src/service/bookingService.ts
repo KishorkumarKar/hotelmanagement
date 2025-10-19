@@ -41,9 +41,6 @@ export const manageBooking = async (bookingData: IBookingProcess) => {
 
     let errorMessage = null;
     let bookInstance: IBooking = {} as IBooking;
-    if (JSON.stringify(bookInstance) !== "{}") {
-        console.log("--");
-    }
     //-----------validate customer-------
     const customer = await customerService.getById(bookingData.customer_id);
     if (!customer) {
@@ -76,20 +73,15 @@ export const manageBooking = async (bookingData: IBookingProcess) => {
 
         const timeDiff = checkOut.getTime() - checkIn.getTime(); // in milliseconds
         const numberOfDays = timeDiff / (1000 * 60 * 60 * 24); // convert to days
-        checkIn = new Date(checkIn.getTime() + (config.check_in_time as number) * 60 * 60 * 1000);
-        checkOut = new Date(checkOut.getTime() + (config.check_out_time as number) * 60 * 60 * 1000);
-
-
+        checkIn = checkInCheckOutConvert(bookingData.check_in, "check_in");
+        checkOut = checkInCheckOutConvert(bookingData.check_out);
         const bookRoomOnThatRange = await getBookedRoomNumber(checkIn, checkOut, hotel.id);
-        console.log("-bookRoomOnThatRange-", bookRoomOnThatRange, checkIn, checkOut)
-        const roomAvailable = await roomService.getAvailableRoom(bookingData.room_type, hotel.id, bookRoomOnThatRange);
+        const roomAvailable = await roomService.getAvailableRoomForBooking(bookingData.room_type, hotel.id, bookRoomOnThatRange);
         if (!roomAvailable || roomAvailable.length <= 0) {
             errorMessage = `No Rooms Available on between  ${bookingData.check_in} - ${bookingData.check_out}`;
             logger.error(errorMessage);
             throw AppError.notFound(errorMessage);
         }
-        console.log("-roomAvailable-", roomAvailable[0])
-        // console.log("-----room A--",roomAvailable)
         const room = roomAvailable[0];
         let paidAmount: number = 0;
         if (!room) {
@@ -119,6 +111,16 @@ export const manageBooking = async (bookingData: IBookingProcess) => {
     //------------Validate room -------------
 }
 
+export const checkInCheckOutConvert = (date: string, type: string="check_out") => {
+    let time = new Date(date);
+    if (type === "check_in") {
+        return new Date(time.getTime() + (config.check_in_time as number) * 60 * 60 * 1000);
+    }
+    else {
+        return new Date(time.getTime() + (config.check_out_time as number) * 60 * 60 * 1000);
+    }
+}
+
 /**
  * Get list of room booked for specific hotel on given
  * time range
@@ -132,11 +134,11 @@ export const getBookedRoomNumber = async (checkIn: Date, checkOut: Date, hotelId
     const bookedRoomObject = await BookingModel.find({
         hotel_id: hotelId,
         status: status,
-        $and: [{ check_in: { $gte: checkIn } }, { check_out: { $lte: checkOut } }]
-    }).select(["room_number"]);
+        $and: [{ check_in: { $lte: checkOut } }, { check_out: { $gte: checkIn } }]
+    }).select({ "room_number": 1 });
     let bookedRoom: Array<string> = [];
     if (bookedRoomObject) {
-        bookedRoom = bookedRoomObject.map(room => room.room_number);
+        bookedRoom = [... new Set(bookedRoomObject.map(room => room.room_number))];
     }
     return bookedRoom;
 }

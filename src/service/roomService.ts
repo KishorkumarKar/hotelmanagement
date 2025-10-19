@@ -50,14 +50,31 @@ export const getRoomByNumber = (room_number: string, hotel_id: string) => {
 }
 
 /**
- * To get Room by Number
+ * To get Room for booking
  * @param id 
  * @returns 
  */
-export const getAvailableRoom = async (type: string, hotel_id: string,bookedRoomIds: any) => {
+export const getAvailableRoomForBooking = async (type: string | undefined, hotel_id: string, bookedRoomIds: any) => {
+    let andFilter: Array<{}> = [{ hotel_id: hotel_id }];
+    if (type) {
+        andFilter.push({ room_type: type });
+    }
+    let filter = {
+        room_number: { $nin: bookedRoomIds },
+        $and: andFilter
+    };
+    return Room.find(filter);
+}
+
+/**
+ * To get Room for booking
+ * @param id 
+ * @returns 
+ */
+export const getAvailableRoom = async (checkIn: Date, checkOut: Date, hotelId: string, type: string = "", bookedRoomIds: Array<string>) => {
     return Room.find({
         room_number: { $nin: bookedRoomIds },
-        $and: [{ room_type: type }, { hotel_id: hotel_id }]
+        $and: [{ room_type: type }, { hotel_id: hotelId }]
     });
 }
 
