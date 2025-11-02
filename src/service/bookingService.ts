@@ -1,4 +1,4 @@
-import { IBooking, IBookingProcess } from "../interface/bookingInterface";
+import { IBooking, IBookingEmailQueue, IBookingProcess } from "../interface/bookingInterface";
 import BookingModel from "../models/bookingModel";
 import * as customerService from "./customerService";
 import * as roomService from "./roomService";
@@ -8,6 +8,7 @@ import logger from "../util/logger";
 import { IRoomType } from "../interface/roomTypeInterface";
 import config from "../config";
 import { IRoom } from "../interface/roomInterface";
+import { pushToQue } from "../util/rabbitMq";
 
 /**
  * To add Booking
@@ -99,6 +100,7 @@ export const manageBooking = async (bookingData: IBookingProcess) => {
         bookInstance.check_in = checkIn;
         bookInstance.check_out = checkOut;
         bookInstance.hotel_id = hotel.id;
+        bookInstance.hotel_name = hotel.name;
         bookInstance.hotel_code = hotel.code;
         bookInstance.payment = {
             payment_date: new Date(),
@@ -106,12 +108,27 @@ export const manageBooking = async (bookingData: IBookingProcess) => {
             payment_status: "paid",
             amount_paid: paidAmount
         }
+
+
+        const bookInfo: IBookingEmailQueue = {
+            customer: customer.name as string,
+            customer_email: customer.email,
+            customer_phone: customer.phone,
+            room_type: bookInstance.room_type,
+            room_id: bookInstance.room_id,
+            hotel: bookInstance.hotel_code,
+            hotel_name: bookInstance.hotel_name,
+            check_id: bookInstance.check_in,
+            check_out: bookInstance.check_out
+        };
+        pushToQue(bookInfo, "booked_email");
+
         return await add(bookInstance);
     }
     //------------Validate room -------------
 }
 
-export const checkInCheckOutConvert = (date: string, type: string="check_out") => {
+export const checkInCheckOutConvert = (date: string, type: string = "check_out") => {
     let time = new Date(date);
     if (type === "check_in") {
         return new Date(time.getTime() + (config.check_in_time as number) * 60 * 60 * 1000);

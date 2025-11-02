@@ -159,6 +159,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "room available",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"room_type\":\"Suite\",\r\n    \"hotel_id\":\"68edd0eb051ebd1267e6ce5c\",\r\n    \"check_in\": \"2025-10-19\",\r\n    \"check_out\": \"2025-10-21\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}V1/room/available",
+							"host": [
+								"{{url}}V1"
+							],
+							"path": [
+								"room",
+								"available"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -319,7 +346,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"customer_id\": \"68efe2596136f5439a634d54\",\r\n    \"payment_method\": \"cash\",\r\n    \"hotel_code\": \"HOTEL_01\",\r\n    \"check_in\": \"2025-10-18\",\r\n    \"check_out\": \"2025-10-20\",\r\n    \"room_type\": \"Deluxe room\"\r\n}",
+							"raw": "{\r\n    \"customer_id\": \"68efe2596136f5439a634d54\",\r\n    \"payment_method\": \"cash\",\r\n    \"hotel_code\": \"HOTEL_01\",\r\n    \"check_in\": \"2025-10-18\",\r\n    \"check_out\": \"2025-10-19\",\r\n    \"room_type\": \"Deluxe room\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

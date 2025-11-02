@@ -6,6 +6,7 @@ import mongoose from "./config/mongooseConfig";
 import logger from "./util/logger";
 import indexRoute from "./routes/indexRoutes";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware";
+import { consumeBookEmail } from "./service/BookingEmailService";
 const app = express();
 
 //---------deb Connect-------
@@ -17,6 +18,9 @@ app.use(express.json());
 //---------Route-------
 indexRoute(app);
 //---------Route-------
+//---------consumer-------
+consumeBookEmail();
+//---------consumer-------
 //---------error handler-------
 app.use(errorHandlerMiddleware);
 //---------error handler-------
