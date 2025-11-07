@@ -1,5 +1,6 @@
 import express from "express";
 import * as hotelController from "../controllers/hotelControllers"
+import * as hotelMiddleware from "../middlewares/hotelMiddleware";
 const router = express.Router();
 
 //----------Same-----------
@@ -21,8 +22,8 @@ router.get("/list", async (req, res) => {
 
 //-----------Same----------
 
-router.route("/").post(hotelController.add);
+router.route("/").post(hotelMiddleware.add, hotelController.add);
 router.route("/").get(hotelController.getList);
-router.route("/:id").get( hotelController.getById).put(hotelController.update).delete(hotelController.deleteHotel);
+router.route("/:id").get(hotelController.getById).put(hotelController.update).delete(hotelController.deleteHotel);
 
 export default router;
