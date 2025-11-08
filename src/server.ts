@@ -7,6 +7,7 @@ import logger from "./util/logger";
 import indexRoute from "./routes/indexRoutes";
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware";
 import { consumeBookEmail } from "./service/BookingEmailService";
+import { ensureAdminUser } from "./util/validateAdminUserUtils";
 const app = express();
 
 //---------deb Connect-------
@@ -24,6 +25,9 @@ consumeBookEmail();
 //---------error handler-------
 app.use(errorHandlerMiddleware);
 //---------error handler-------
+//----create Admin user----------
+ensureAdminUser()
+//----create Admin user----------
 
 const collectServer = async () => {
     try {

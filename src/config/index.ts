@@ -1,5 +1,6 @@
 const config = {
     port: process.env.PORT || 2005,
+    saltRound: Number(process.env.SALT_ROUND) || 10,
     db_connection: process.env.CONNECTION_STRING || "",
     rabbit_mq_host: process.env.RABBIT_MQ_HOST || "",
     exchange: process.env.RABBIT_MQ_EXCHANGE_BOOK || "hotel_booked",
