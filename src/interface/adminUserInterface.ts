@@ -6,3 +6,7 @@ export interface IAdminUser {
     password: string,
     email: string,
 }
+export interface IAdminUserLogin {
+    user: string,
+    password: string
+}
