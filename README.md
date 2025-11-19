@@ -7,7 +7,7 @@ Postman collection is provided in the repo.
 - npm start
 - npm run dev (For development ENV)
 
-
+# Setup to do booking
 - Amin login (Use loken authorization for all API)
 - Create hotel
 - Create Room type
