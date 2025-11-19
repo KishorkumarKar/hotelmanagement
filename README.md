@@ -2,6 +2,10 @@
 This is a simple project for hotel booking. An admin user must be created. During the build process, an admin user is automatically created — log in as the admin to access all other endpoints.
 Postman collection is provided in the repo.
 
+# Setup
+- npm run build
+- npm start
+- npm run dev (For development ENV)
 
 
 - Amin login (Use loken authorization for all API)
